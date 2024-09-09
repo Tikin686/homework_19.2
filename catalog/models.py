@@ -44,10 +44,10 @@ class Product(models.Model):
         verbose_name='Цена покупки'
     )
     created_at = models.DateTimeField(
-        verbose_name='Дата создания'
+        verbose_name='Дата создания', auto_now_add=True
     )
     updated_at = models.DateTimeField(
-        verbose_name='Дата последнего изменения'
+        verbose_name='Дата последнего изменения', auto_now=True
     )
 
     class Meta:
