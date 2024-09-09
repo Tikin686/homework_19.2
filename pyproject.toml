@@ -12,6 +12,7 @@ django = "^5.1"
 psycopg = "^3.2.1"
 psycopg2 = "^2.9.9"
 ipython = "^8.27.0"
+pillow = "^10.4.0"
 
 
 [build-system]
