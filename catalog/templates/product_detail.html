@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ product.price}}</h1>
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                        <li>{{ product.description }}</li>
+                        <li>{{ product.description | truncatechars:100 }}</li>
                     </ul>
                     <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Подключить</a>
                 </div>
