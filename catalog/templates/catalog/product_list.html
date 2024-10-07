@@ -6,6 +6,7 @@
     <p class="lead">Skystore - это отличный вариант хранения ваших плагинов и примеров кода, который вы бы хотели
         продать</p>
 </div>
+<a class="btn btn-outline-primary" href="{% url 'catalog:product_create' %}">Добавить продукт</a>
 <div class="row text-center">
         {% for product in object_list %}
         <div class="col-3">
@@ -19,7 +20,18 @@
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                         <li>{{ product.description | truncatechars:100 }}</li>
                     </ul>
+                    <p class="card-body">
+                        {% if product.active_version %}
+                                <p class="card-text">
+                                    <strong>Текущая версия:</strong> {{ product.active_version.version_name }} ({{product.active_version.version_number}})
+                                </p>
+                        {% else %}
+                            <p>Нет активной версии.</p>
+                        {% endif %}
+                    </p>
                     <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Посмотреть</a>
+                    <a class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}" role="button">Редактировать</a>
+                    <a class="btn btn-primary" href="{% url 'catalog:product_delete' product.pk %}" role="button">Удалить</a>
                 </div>
             </div>
         </div>

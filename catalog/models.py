@@ -59,20 +59,24 @@ class Product(models.Model):
         return self.name
 
 
-class Blog(models.Model):
-    title = models.CharField(max_length=50, verbose_name="Загаловок")
-    slug = models.CharField(max_length=150, verbose_name="slug")
-    text = models.TextField(verbose_name="Содержимое")
-    preview = models.ImageField(upload_to="catalog/media", blank=True, null=True)
-    created_at = models.DateTimeField(verbose_name="Дата создания", auto_now_add=True)
-    views_count = models.ImageField(default=0, verbose_name="Просмотры")
-    is_published = models.BooleanField(default=True, verbose_name="Опубликовано")
+class Version(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name="versions",
+        verbose_name="product",
+    )
+    version_number = models.CharField(max_length=50, verbose_name="Номер версии")
+    version_name = models.CharField(max_length=150, verbose_name="Название версии")
+    is_current = models.BooleanField(default=False, verbose_name="Признак текущей версии")
 
 
-    class Meta:
-        verbose_name = "Блог"
-        verbose_name_plural = "Блоги"
-        ordering = ["title", ]
+class Meta:
+    version_name = "Версия"
+    version_name_plural = "Версии"
+    ordering = ["product", ]
+
 
     def __str__(self):
-        return self.title
+        return f"{self.product.name} - {self.version_name} ({self.version_number})"
+
