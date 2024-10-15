@@ -11,6 +11,7 @@ class StyleFormMixin:
             else:
                 fild.widget.attrs["class"] = "form-comfort"
 
+
 class ProductForm(forms.ModelForm, StyleFormMixin):
     forbidden_words = [
         "казино",
@@ -24,7 +25,6 @@ class ProductForm(forms.ModelForm, StyleFormMixin):
         "радар",
     ]
 
-
     class Meta:
         model = Product
         fields = "__all__"
@@ -35,7 +35,6 @@ class ProductForm(forms.ModelForm, StyleFormMixin):
             if word in cleaned_data.lower():
                 raise forms.ValidationError(f"Название не должно содержать {word}")
             return cleaned_data
-
 
     def clean_description(self):
         cleaned_data = self.cleaned_data.get("description")

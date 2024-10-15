@@ -3,7 +3,6 @@ from users.models import User
 from catalog.forms import StyleFormMixin
 
 
-
 class UserRegisterForm(StyleFormMixin, UserCreationForm):
     class Meta:
         model = User

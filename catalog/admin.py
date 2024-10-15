@@ -3,9 +3,10 @@ from catalog.models import Category, Product, Version
 
 # Register your models here.
 
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("id", "name","price", "category")
+    list_display = ("id", "name", "price", "category")
     list_filter = ("category",)
     search_fields = ("name", "description")
 
@@ -17,4 +18,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Version)
 class VersionAdmin(admin.ModelAdmin):
-    list_display = ("version_number","version_name","is_current")
+    list_display = ("version_number", "version_name", "is_current")
