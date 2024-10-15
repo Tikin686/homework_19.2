@@ -50,6 +50,7 @@ class Product(models.Model):
         verbose_name='Дата последнего изменения', auto_now=True
     )
     owner = models.ForeignKey(User, verbose_name="products", blank=True, null=True, on_delete=models.CASCADE)
+
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
@@ -76,7 +77,5 @@ class Meta:
     version_name_plural = "Версии"
     ordering = ["product", ]
 
-
     def __str__(self):
         return f"{self.product.name} - {self.version_name} ({self.version_number})"
-
