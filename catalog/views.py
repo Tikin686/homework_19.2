@@ -1,8 +1,10 @@
 from catalog.models import Product, Version
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from django.forms import inlineformset_factory
+from django.core.exceptions import PermissionDenied
+
 
 
 class ProductListView(ListView):
@@ -37,6 +39,8 @@ class ProductUpdateView(UpdateView):
     form_class = ProductForm
     success_url = reverse_lazy("catalog:product_list")
 
+
+
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
@@ -55,6 +59,13 @@ class ProductUpdateView(UpdateView):
 
         return super().form_valid(form)
 
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return ProductForm
+        if user.has_perm("catalog.can_edit_description") and user.has_perm("catalog.can_edit_category") and user.has_perm("catalog.can_published"):
+            return ProductModeratorForm
+        raise PermissionDenied
 
 class ProductDeleteView(DeleteView):
     model = Product
